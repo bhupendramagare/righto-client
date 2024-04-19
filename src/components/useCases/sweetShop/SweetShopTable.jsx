@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { format } from "date-fns";
 
 function SweetShopTable({ row, onSave }) {
   const [rowData, setRowData] = useState(row);
   const [isEditing, setIsEditing] = useState(false);
+  const [tempDate, setTempDate] = useState(""); // Formats the date as "yyyy-MM-dd"
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -13,8 +15,22 @@ function SweetShopTable({ row, onSave }) {
     setIsEditing(false);
   };
 
+  useEffect(() => {
+    const dateInitial = new Date(); //
+    const formattedDateInitial = dateInitial.toISOString().split("T")[0]; // Formats the date as "yyyy-MM-dd"
+    setTempDate(formattedDateInitial);
+  }, []);
+
   const handleChange = (e) => {
     let { name, value } = e.target;
+
+    if (name === "BEST_BEFORE_DATE") {
+      // the default format saved in tempDate to show change in editing mode
+      setTempDate(value);
+      let parsedDate = new Date(value);
+      let formatted = format(parsedDate, "dd MMM yy");
+      value = formatted.toUpperCase();
+    }
 
     setRowData({
       ...rowData,
@@ -96,15 +112,16 @@ function SweetShopTable({ row, onSave }) {
           />
         )}
       </td>
+
       <td className="px-6 py-4">
         {isEditing ? (
           <input
-            type="text"
+            type="date"
             name="BEST_BEFORE_DATE"
             id="bestdate"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             placeholder="eg. JS1001"
-            value={rowData.BEST_BEFORE_DATE}
+            value={tempDate}
             onChange={handleChange}
           />
         ) : (
@@ -144,10 +161,6 @@ function SweetShopTable({ row, onSave }) {
       </td>
 
       <td className="px-6 py-4 text-left ">
-        {/* <a href="#" className="font-medium text-blue-600 hover:underline">
-          Edit
-        </a> */}
-
         {!isEditing ? (
           <button
             className="w-full text-white bg-blue-600 hover:bg-blue-700  font-medium rounded-lg text-sm px-5 py-2.5 text-center"

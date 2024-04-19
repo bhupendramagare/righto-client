@@ -9,6 +9,7 @@ const generateInitialData = (
   totalTokens
 ) => {
   const token = "JS" + identifier;
+
   let currentDate = new Date();
   let currentFormatedDate = format(currentDate, "dd MMM yy");
 
