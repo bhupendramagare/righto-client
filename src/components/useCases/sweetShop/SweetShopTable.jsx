@@ -56,14 +56,10 @@ function SweetShopTable({ row, onSave }) {
             onChange={handleChange}
           />
         ) : (
-          <input
-            type="text"
+          <TextInput
             name="PRODUCT_ID"
             id="productid"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="eg. JS1001"
             value={rowData.PRODUCT_ID}
-            readOnly
           />
         )}
       </th>
@@ -75,20 +71,12 @@ function SweetShopTable({ row, onSave }) {
             name="ITEM_NAME"
             id="name"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="eg. JS1001"
+            placeholder="Prodct name"
             value={rowData.ITEM_NAME}
             onChange={handleChange}
           />
         ) : (
-          <input
-            type="text"
-            name="ITEM_NAME"
-            id="name"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="eg. JS1001"
-            value={rowData.ITEM_NAME}
-            readOnly
-          />
+          <TextInput name="ITEM_NAME" id="name" value={rowData.ITEM_NAME} />
         )}
       </td>
       <td className="px-6 py-4">
@@ -103,15 +91,7 @@ function SweetShopTable({ row, onSave }) {
             onChange={handleChange}
           />
         ) : (
-          <input
-            type="text"
-            name="PRICE"
-            id="price"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="eg. JS1001"
-            value={rowData.PRICE}
-            readOnly
-          />
+          <TextInput name="PRICE" id="price" value={rowData.PRICE} />
         )}
       </td>
 
@@ -127,14 +107,10 @@ function SweetShopTable({ row, onSave }) {
             onChange={handleChange}
           />
         ) : (
-          <input
-            type="text"
+          <TextInput
             name="BEST_BEFORE_DATE"
             id="bestdate"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="eg. JS1001"
             value={rowData.BEST_BEFORE_DATE}
-            readOnly
           />
         )}
       </td>
@@ -142,14 +118,6 @@ function SweetShopTable({ row, onSave }) {
         {isEditing ? (
           <SelectDiscountLabel handleChange={handleChange} />
         ) : (
-          // <input
-          //   type="text"
-          //   name="DISC_NOTE"
-          //   id="note"
-          //   value={rowData.DISC_NOTE}
-          //   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-          //   readOnly
-          // />
           <TextInput name="DISC_NOTE" id="note" value={rowData.DISC_NOTE} />
         )}
       </td>
