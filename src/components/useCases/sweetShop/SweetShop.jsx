@@ -24,7 +24,13 @@ function SweetShop({ initialData }) {
       progress: undefined,
       theme: "light",
     });
-    //toast
+    //
+
+    //save to database
+
+    console.log(updatedRow);
+
+    //
 
     const updatedData = tableData.map((row) => {
       if (row.id === updatedRow.id) {

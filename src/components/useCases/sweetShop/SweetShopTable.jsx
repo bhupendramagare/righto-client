@@ -129,6 +129,7 @@ function SweetShopTable({ row, onSave }) {
         {isEditing ? (
           <SelectDiscountLabel
             unique_note_id={unique_note_id}
+            value={rowData.DISC_NOTE}
             handleChange={handleChange}
           />
         ) : (
