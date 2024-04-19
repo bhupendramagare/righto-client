@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useId, useState } from "react";
 import { format } from "date-fns";
 import SelectDiscountLabel from "../../select/SelectDiscountLabel";
 import TextInput from "../../inputReadonly/TextInput";
@@ -7,6 +7,13 @@ function SweetShopTable({ row, onSave }) {
   const [rowData, setRowData] = useState(row);
   const [isEditing, setIsEditing] = useState(false);
   const [tempDate, setTempDate] = useState(""); // Formats the date as "yyyy-MM-dd"
+
+  //uniqu id's for input label id attributes
+  const unique_product_id = useId();
+  const unique_name_id = useId();
+  const unique_price_id = useId();
+  const unique_best_before_date_id = useId();
+  const unique_note_id = useId();
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -49,7 +56,7 @@ function SweetShopTable({ row, onSave }) {
           <input
             type="text"
             name="PRODUCT_ID"
-            id="productid"
+            id={unique_product_id}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             placeholder="eg. JS1001"
             value={rowData.PRODUCT_ID}
@@ -58,7 +65,7 @@ function SweetShopTable({ row, onSave }) {
         ) : (
           <TextInput
             name="PRODUCT_ID"
-            id="productid"
+            id={unique_product_id}
             value={rowData.PRODUCT_ID}
           />
         )}
@@ -69,14 +76,18 @@ function SweetShopTable({ row, onSave }) {
           <input
             type="text"
             name="ITEM_NAME"
-            id="name"
+            id={unique_name_id}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             placeholder="Prodct name"
             value={rowData.ITEM_NAME}
             onChange={handleChange}
           />
         ) : (
-          <TextInput name="ITEM_NAME" id="name" value={rowData.ITEM_NAME} />
+          <TextInput
+            name="ITEM_NAME"
+            id={unique_name_id}
+            value={rowData.ITEM_NAME}
+          />
         )}
       </td>
       <td className="px-6 py-4">
@@ -84,14 +95,14 @@ function SweetShopTable({ row, onSave }) {
           <input
             type="text"
             name="PRICE"
-            id="price"
+            id={unique_price_id}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             placeholder="eg. JS1001"
             value={rowData.PRICE}
             onChange={handleChange}
           />
         ) : (
-          <TextInput name="PRICE" id="price" value={rowData.PRICE} />
+          <TextInput name="PRICE" id={unique_price_id} value={rowData.PRICE} />
         )}
       </td>
 
@@ -100,7 +111,7 @@ function SweetShopTable({ row, onSave }) {
           <input
             type="date"
             name="BEST_BEFORE_DATE"
-            id="bestdate"
+            id={unique_best_before_date_id}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             placeholder="eg. JS1001"
             value={tempDate}
@@ -109,16 +120,23 @@ function SweetShopTable({ row, onSave }) {
         ) : (
           <TextInput
             name="BEST_BEFORE_DATE"
-            id="bestdate"
+            id={unique_best_before_date_id}
             value={rowData.BEST_BEFORE_DATE}
           />
         )}
       </td>
       <td className="px-6 py-4">
         {isEditing ? (
-          <SelectDiscountLabel handleChange={handleChange} />
+          <SelectDiscountLabel
+            unique_note_id={unique_note_id}
+            handleChange={handleChange}
+          />
         ) : (
-          <TextInput name="DISC_NOTE" id="note" value={rowData.DISC_NOTE} />
+          <TextInput
+            name="DISC_NOTE"
+            id={unique_note_id}
+            value={rowData.DISC_NOTE}
+          />
         )}
       </td>
 

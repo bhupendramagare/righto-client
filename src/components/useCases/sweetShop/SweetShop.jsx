@@ -13,6 +13,7 @@ function SweetShop({ initialData }) {
   }, [initialData]);
 
   const handleSave = (updatedRow) => {
+    //toast
     toast.success("Saved!", {
       position: "top-right",
       autoClose: 1999,
@@ -23,6 +24,8 @@ function SweetShop({ initialData }) {
       progress: undefined,
       theme: "light",
     });
+    //toast
+
     const updatedData = tableData.map((row) => {
       if (row.id === updatedRow.id) {
         return updatedRow;
@@ -34,6 +37,7 @@ function SweetShop({ initialData }) {
 
   return (
     <>
+      {/* toast  */}
       <ToastContainer
         position="top-right"
         autoClose={1999}
@@ -46,17 +50,21 @@ function SweetShop({ initialData }) {
         pauseOnHover
         theme="light"
       />
+      {/* toast  */}
 
+      {/* header */}
       <div>
         <h4 className="text-2xl font-bold text-center mb-10">Sweet Shop</h4>
       </div>
 
+      {/* card component render if sm view */}
       <div className="md:hidden flex flex-col gap-5 items-center">
         {tableData.map((row, index) => (
           <SweetShopCard key={index} row={row} onSave={handleSave} />
         ))}
       </div>
 
+      {/* table component render if desktop view  */}
       <div className="hidden md:block  ">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left text-gray-500">

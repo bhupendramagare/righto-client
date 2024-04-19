@@ -1,6 +1,6 @@
 import React from "react";
 
-function SelectDiscountLabel({ handleChange }) {
+function SelectDiscountLabel({ unique_note_id, handleChange }) {
   const options = [
     "ORGANIC",
     "NOSUGAR",
@@ -15,7 +15,7 @@ function SelectDiscountLabel({ handleChange }) {
     <>
       <select
         name="DISC_NOTE"
-        id="note"
+        id={unique_note_id}
         onChange={handleChange}
         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
       >
