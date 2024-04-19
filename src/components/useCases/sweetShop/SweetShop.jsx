@@ -57,7 +57,40 @@ function SweetShop({ initialData }) {
         ))}
       </div>
 
-      <SweetShopTable initialData={initialData} />
+      <div className="hidden md:block  ">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+          <table className="w-full text-sm text-left text-gray-500">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+              <tr>
+                <th scope="col" className="px-6 py-3">
+                  Product ID
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Name
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Best Before Date
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Price
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Discount/Note
+                </th>
+
+                <th scope="col" className=" px-6 py-3">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {tableData.map((row, index) => (
+                <SweetShopTable key={index} row={row} onSave={handleSave} />
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </>
   );
 }
