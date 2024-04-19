@@ -2,6 +2,7 @@ import React from "react";
 import generateInitialData from "../../utils/generateInitialData";
 import SweetShop from "../useCases/sweetShop/SweetShop";
 import GroceryStore from "../useCases/groceryStore/GroceryStore";
+import BuffetFood from "../useCases/buffetFood/BuffetFood";
 
 function EditDetails({ useCase, currency, tagSize, identifier, totalTokens }) {
   const initialData = generateInitialData(
@@ -19,6 +20,9 @@ function EditDetails({ useCase, currency, tagSize, identifier, totalTokens }) {
       break;
     case "gr":
       content = <GroceryStore initialData={initialData} />;
+      break;
+    case "bf":
+      content = <BuffetFood initialData={initialData} />;
       break;
   }
 

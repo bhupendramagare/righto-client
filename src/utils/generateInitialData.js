@@ -44,6 +44,26 @@ function groceryStore(token, currency, totalTokens) {
   return testData;
 }
 
+function buffetFood(token, totalTokens) {
+  let testData = [];
+
+  for (let index = 1; index <= Number(totalTokens); index++) {
+    let temp = {
+      id: index,
+      PRODUCT_ID: tokenGenerator(token, index),
+      ITEM_NAME1: "name1 " + index,
+      ITEM_NAME2: "name2 " + index,
+      CALORIES: `0`,
+      ALLERGEN: "0",
+      DISC_NOTE: "0",
+    };
+
+    testData.push(temp);
+  }
+
+  return testData;
+}
+
 const generateInitialData = (
   useCase,
   currency,
@@ -61,6 +81,9 @@ const generateInitialData = (
       break;
     case "gr":
       initialData = groceryStore(token, currency, totalTokens);
+      break;
+    case "bf":
+      initialData = buffetFood(token, totalTokens);
       break;
   }
 
