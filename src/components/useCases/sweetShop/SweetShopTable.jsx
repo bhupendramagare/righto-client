@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { format } from "date-fns";
+import SelectDiscountLabel from "../../select/SelectDiscountLabel";
+import TextInput from "../../inputReadonly/TextInput";
 
 function SweetShopTable({ row, onSave }) {
   const [rowData, setRowData] = useState(row);
   const [isEditing, setIsEditing] = useState(false);
   const [tempDate, setTempDate] = useState(""); // Formats the date as "yyyy-MM-dd"
-
-  const options = [
-    "ORGANIC",
-    "NOSUGAR",
-    "DESIGHEE",
-    "VEGAN",
-    "PUREVEG",
-    "EGGLESS",
-    "EGG",
-    "NONVEG",
-  ];
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -149,44 +140,17 @@ function SweetShopTable({ row, onSave }) {
       </td>
       <td className="px-6 py-4">
         {isEditing ? (
+          <SelectDiscountLabel handleChange={handleChange} />
+        ) : (
           // <input
           //   type="text"
           //   name="DISC_NOTE"
           //   id="note"
-          //   onChange={handleChange}
-
-          //   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-          //   placeholder="eg. JS1001"
           //   value={rowData.DISC_NOTE}
-
+          //   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          //   readOnly
           // />
-
-          <select
-            name="DISC_NOTE"
-            id="note"
-            onChange={handleChange}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-          >
-            <option value={""} key={-1} disabled>
-              Choose a label
-            </option>
-
-            {options.map((option, index) => (
-              <option key={index} value={`${option}`}>
-                {option}
-              </option>
-            ))}
-          </select>
-        ) : (
-          <input
-            type="text"
-            name="DISC_NOTE"
-            id="note"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="eg. JS1001"
-            value={rowData.DISC_NOTE}
-            readOnly
-          />
+          <TextInput name="DISC_NOTE" id="note" value={rowData.DISC_NOTE} />
         )}
       </td>
 

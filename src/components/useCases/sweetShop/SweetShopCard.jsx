@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { format } from "date-fns";
+import SelectDiscountLabel from "../../select/SelectDiscountLabel";
+import TextInput from "../../inputReadonly/TextInput";
 
 function SweetShopCard({ row, onSave }) {
   const [rowData, setRowData] = useState(row);
   const [isEditing, setIsEditing] = useState(false);
+  const [tempDate, setTempDate] = useState(""); // Formats the date as "yyyy-MM-dd"
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -13,8 +17,22 @@ function SweetShopCard({ row, onSave }) {
     setIsEditing(false);
   };
 
+  useEffect(() => {
+    const dateInitial = new Date();
+    const formattedDateInitial = dateInitial.toISOString().split("T")[0]; // Formats the date as "yyyy-MM-dd"
+    setTempDate(formattedDateInitial);
+  }, []); // this use effect only for date.
+
   const handleChange = (e) => {
     let { name, value } = e.target;
+
+    if (name === "BEST_BEFORE_DATE") {
+      // the default format saved in tempDate to show change in editing mode
+      setTempDate(value);
+      let parsedDate = new Date(value);
+      let formatted = format(parsedDate, "dd MMM yy");
+      value = formatted.toUpperCase();
+    }
 
     setRowData({
       ...rowData,
@@ -129,12 +147,11 @@ function SweetShopCard({ row, onSave }) {
 
           {isEditing ? (
             <input
-              type="text"
+              type="date"
               name="BEST_BEFORE_DATE"
               id="bestdate"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              placeholder="eg. JS1001"
-              value={rowData.BEST_BEFORE_DATE}
+              value={tempDate}
               onChange={handleChange}
             />
           ) : (
@@ -143,7 +160,6 @@ function SweetShopCard({ row, onSave }) {
               name="BEST_BEFORE_DATE"
               id="bestdate"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              placeholder="eg. JS1001"
               value={rowData.BEST_BEFORE_DATE}
               readOnly
             />
@@ -159,24 +175,22 @@ function SweetShopCard({ row, onSave }) {
           </label>
 
           {isEditing ? (
-            <input
-              type="text"
-              name="DISC_NOTE"
-              id="note"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              placeholder="eg. JS1001"
-              value={rowData.DISC_NOTE}
-              onChange={handleChange}
-            />
+            <SelectDiscountLabel handleChange={handleChange} />
           ) : (
-            <input
-              type="text"
-              name="DISC_NOTE"
-              id="note"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              placeholder="eg. JS1001"
+            // <input
+            //   type="text"
+            //   name="DISC_NOTE"
+            //   id="note"
+            //   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            //   placeholder="eg. JS1001"
+            //   value={rowData.DISC_NOTE}
+            //   readOnly
+            // />
+
+            <TextInput
+              name={"DISC_NOTE"}
+              id={"note"}
               value={rowData.DISC_NOTE}
-              readOnly
             />
           )}
         </div>
