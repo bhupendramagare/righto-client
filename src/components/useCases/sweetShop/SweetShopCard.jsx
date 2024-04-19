@@ -87,21 +87,44 @@ function SweetShopCard({ row, onSave }) {
           </label>
 
           {isEditing ? (
-            <input
-              type="text"
-              name="ITEM_NAME"
-              id={unique_name_id}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              placeholder="eg. JS1001"
-              value={rowData.ITEM_NAME}
-              onChange={handleChange}
-            />
+            <>
+              <input
+                type="text"
+                name="ITEM_NAME1"
+                id={unique_name_id}
+                className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                placeholder="max 17 characters"
+                value={rowData.ITEM_NAME1}
+                onChange={handleChange}
+                maxLength={17}
+              />
+
+              <input
+                type="text"
+                name="ITEM_NAME2"
+                id={unique_name_id}
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                placeholder="max 17 characters"
+                value={rowData.ITEM_NAME2}
+                onChange={handleChange}
+                maxLength={17}
+              />
+            </>
           ) : (
-            <TextInput
-              name="ITEM_NAME"
-              id={unique_name_id}
-              value={rowData.ITEM_NAME}
-            />
+            <>
+              <TextInput
+                name="ITEM_NAME1"
+                id={unique_name_id}
+                value={rowData.ITEM_NAME1}
+                className={"mb-3"}
+              />
+
+              <TextInput
+                name="ITEM_NAME2"
+                id={unique_name_id}
+                value={rowData.ITEM_NAME2}
+              />
+            </>
           )}
         </div>
 

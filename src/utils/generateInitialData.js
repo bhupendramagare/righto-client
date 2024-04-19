@@ -19,7 +19,8 @@ const generateInitialData = (
     let temp = {
       id: index,
       PRODUCT_ID: tokenGenerator(token, index),
-      ITEM_NAME: "Product " + index,
+      ITEM_NAME1: "name1 " + index,
+      ITEM_NAME2: "name2 " + index,
       PRICE: `${currency}. 0`,
       BEST_BEFORE_DATE: currentFormatedDate,
       DISC_NOTE: "0",
