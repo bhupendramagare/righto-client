@@ -1,18 +1,16 @@
-import React, { useEffect, useId, useState } from "react";
-import { format } from "date-fns";
+import React, { useId, useState } from "react";
 import SelectDiscountLabel from "../../select/SelectDiscountLabel";
 import TextInput from "../../inputReadonly/TextInput";
 
-function SweetShopTable({ row, onSave }) {
+function GroceryStoreTable({ row, onSave }) {
   const [rowData, setRowData] = useState(row);
   const [isEditing, setIsEditing] = useState(false);
-  const [tempDate, setTempDate] = useState(""); // Formats the date as "yyyy-MM-dd"
 
   //uniqu id's for input label id attributes
   const unique_product_id = useId();
   const unique_name_id = useId();
   const unique_price_id = useId();
-  const unique_best_before_date_id = useId();
+  const unique_sale_price_id = useId();
   const unique_note_id = useId();
 
   const handleEdit = () => {
@@ -24,23 +22,8 @@ function SweetShopTable({ row, onSave }) {
     setIsEditing(false);
   };
 
-  useEffect(() => {
-    const dateInitial = new Date();
-    const formattedDateInitial = dateInitial.toISOString().split("T")[0]; // Formats the date as "yyyy-MM-dd"
-    setTempDate(formattedDateInitial);
-  }, []); // this use effect only for date.
-
   const handleChange = (e) => {
-    let { name, value } = e.target;
-
-    if (name === "BEST_BEFORE_DATE") {
-      // the default format saved in tempDate to show change in editing mode
-      setTempDate(value);
-      let parsedDate = new Date(value);
-      let formatted = format(parsedDate, "dd MMM yy");
-      value = formatted.toUpperCase();
-    }
-
+    const { name, value } = e.target;
     setRowData({
       ...rowData,
       [name]: value,
@@ -113,6 +96,7 @@ function SweetShopTable({ row, onSave }) {
           </>
         )}
       </td>
+
       <td className="px-6 py-4">
         {isEditing ? (
           <input
@@ -132,22 +116,23 @@ function SweetShopTable({ row, onSave }) {
       <td className="px-6 py-4">
         {isEditing ? (
           <input
-            type="date"
-            name="BEST_BEFORE_DATE"
-            id={unique_best_before_date_id}
+            type="text"
+            name="SALE_PRICE"
+            id={unique_sale_price_id}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             placeholder="eg. JS1001"
-            value={tempDate}
+            value={rowData.SALE_PRICE}
             onChange={handleChange}
           />
         ) : (
           <TextInput
-            name="BEST_BEFORE_DATE"
-            id={unique_best_before_date_id}
-            value={rowData.BEST_BEFORE_DATE}
+            name="SALE_PRICE"
+            id={unique_sale_price_id}
+            value={rowData.SALE_PRICE}
           />
         )}
       </td>
+
       <td className="px-6 py-4">
         {isEditing ? (
           <SelectDiscountLabel
@@ -185,4 +170,4 @@ function SweetShopTable({ row, onSave }) {
   );
 }
 
-export default SweetShopTable;
+export default GroceryStoreTable;

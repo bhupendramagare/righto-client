@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import SweetShopTable from "./SweetShopTable";
-import SweetShopCard from "./SweetShopCard";
+import GroceryStoreTabel from "./GroceryStoreTable";
+import GroceryStoreCard from "./GroceryStoreCard";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -24,7 +24,13 @@ function GroceryStore({ initialData }) {
       progress: undefined,
       theme: "light",
     });
-    //toast
+    //
+
+    //save to database
+
+    console.log(updatedRow);
+
+    //
 
     const updatedData = tableData.map((row) => {
       if (row.id === updatedRow.id) {
@@ -54,13 +60,13 @@ function GroceryStore({ initialData }) {
 
       {/* header */}
       <div>
-        <h4 className="text-2xl font-bold text-center mb-10">Sweet Shop</h4>
+        <h4 className="text-2xl font-bold text-center mb-10">Grocery Store</h4>
       </div>
 
       {/* card component render if sm view */}
       <div className="md:hidden flex flex-col gap-5 items-center">
         {tableData.map((row, index) => (
-          <SweetShopCard key={index} row={row} onSave={handleSave} />
+          <GroceryStoreCard key={index} row={row} onSave={handleSave} />
         ))}
       </div>
 
@@ -68,7 +74,7 @@ function GroceryStore({ initialData }) {
       <div className="hidden md:block  ">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left text-gray-500">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
               <tr>
                 <th scope="col" className="px-6 py-3">
                   Product ID
@@ -77,10 +83,10 @@ function GroceryStore({ initialData }) {
                   Name
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Best Before Date
+                  Price
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Price
+                  Sale Price
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Discount/Note
@@ -93,7 +99,7 @@ function GroceryStore({ initialData }) {
             </thead>
             <tbody>
               {tableData.map((row, index) => (
-                <SweetShopTable key={index} row={row} onSave={handleSave} />
+                <GroceryStoreTabel key={index} row={row} onSave={handleSave} />
               ))}
             </tbody>
           </table>
