@@ -1,6 +1,5 @@
 import React, { useEffect, useId, useState } from "react";
 import { format } from "date-fns";
-import SelectDiscountLabel from "../../select/SelectDiscountLabel";
 import TextInput from "../../inputReadonly/TextInput";
 import SelectModeOfPayment from "../../select/SelectModeOfPayment";
 
