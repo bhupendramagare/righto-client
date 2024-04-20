@@ -3,6 +3,7 @@ import generateInitialData from "../../utils/generateInitialData";
 import SweetShop from "../useCases/sweetShop/SweetShop";
 import GroceryStore from "../useCases/groceryStore/GroceryStore";
 import BuffetFood from "../useCases/buffetFood/BuffetFood";
+import PatientData from "../useCases/patientData/PatientData";
 
 function EditDetails({ useCase, currency, tagSize, identifier, totalTokens }) {
   const initialData = generateInitialData(
@@ -23,6 +24,9 @@ function EditDetails({ useCase, currency, tagSize, identifier, totalTokens }) {
       break;
     case "bf":
       content = <BuffetFood initialData={initialData} />;
+      break;
+    case "pt":
+      content = <PatientData initialData={initialData} />;
       break;
   }
 

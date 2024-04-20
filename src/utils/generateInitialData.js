@@ -64,6 +64,32 @@ function buffetFood(token, totalTokens) {
   return testData;
 }
 
+function patientData(token, totalTokens) {
+  let currentDate = new Date();
+  let currentFormatedDate = format(currentDate, "dd MMM yy");
+
+  let testData = [];
+
+  for (let index = 1; index <= Number(totalTokens); index++) {
+    let temp = {
+      id: index,
+      PRODUCT_ID: tokenGenerator(token, index),
+      ITEM_NAME1: "name1 " + index,
+      ITEM_NAME2: "name2 " + index,
+      AGE: "0",
+      GENDER: "M/F",
+      CONSULTING_DR: "Dr. ",
+      ADMITTED_DATE: currentFormatedDate,
+      PROCEDURE: "",
+      MODE_OF_PAYMENT: "0",
+    };
+
+    testData.push(temp);
+  }
+
+  return testData;
+}
+
 const generateInitialData = (
   useCase,
   currency,
@@ -84,6 +110,9 @@ const generateInitialData = (
       break;
     case "bf":
       initialData = buffetFood(token, totalTokens);
+      break;
+    case "pt":
+      initialData = patientData(token, totalTokens);
       break;
   }
 
