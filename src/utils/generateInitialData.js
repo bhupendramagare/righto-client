@@ -74,14 +74,14 @@ function patientData(token, totalTokens) {
     let temp = {
       id: index,
       PRODUCT_ID: tokenGenerator(token, index),
-      ITEM_NAME1: "name1 " + index,
-      ITEM_NAME2: "name2 " + index,
-      AGE: "0",
-      GENDER: "M/F",
-      CONSULTING_DR: "Dr. ",
+      ITEM_NAME1: "",
+      ITEM_NAME2: "",
+      AGE: "",
+      GENDER: "",
+      CONSULTING_DR: "",
       ADMITTED_DATE: currentFormatedDate,
       PROCEDURE: "",
-      MODE_OF_PAYMENT: "0",
+      MODE_OF_PAYMENT: "",
     };
 
     testData.push(temp);

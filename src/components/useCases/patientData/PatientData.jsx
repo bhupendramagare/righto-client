@@ -83,13 +83,19 @@ function PatientData({ initialData }) {
                   Name
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Price
+                  Age, Gender
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Best Before Date
+                  Consulting Dr.
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Discount/Note
+                  Admitted Date
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Procedure
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Mode of Payment
                 </th>
 
                 <th scope="col" className=" px-6 py-3">

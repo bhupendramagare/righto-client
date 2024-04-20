@@ -2,10 +2,11 @@ import React, { useEffect, useId, useState } from "react";
 import { format } from "date-fns";
 import SelectDiscountLabel from "../../select/SelectDiscountLabel";
 import TextInput from "../../inputReadonly/TextInput";
+import SelectModeOfPayment from "../../select/SelectModeOfPayment";
 
 function PatientDataTable({ row, onSave }) {
   const [rowData, setRowData] = useState(row);
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(true);
   const [tempDate, setTempDate] = useState(""); // Formats the date as "yyyy-MM-dd"
 
   //uniqu id's for input label id attributes
@@ -33,7 +34,7 @@ function PatientDataTable({ row, onSave }) {
   const handleChange = (e) => {
     let { name, value } = e.target;
 
-    if (name === "BEST_BEFORE_DATE") {
+    if (name === "ADMITTED_DATE") {
       // the default format saved in tempDate to show change in editing mode
       setTempDate(value);
       let parsedDate = new Date(value);
@@ -67,6 +68,7 @@ function PatientDataTable({ row, onSave }) {
             name="PRODUCT_ID"
             id={unique_product_id}
             value={rowData.PRODUCT_ID}
+            placeholder="product id"
           />
         )}
       </th>
@@ -103,29 +105,88 @@ function PatientDataTable({ row, onSave }) {
               id={unique_name_id}
               value={rowData.ITEM_NAME1}
               className={"mb-3"}
+              placeholder="patient's name"
             />
 
             <TextInput
               name="ITEM_NAME2"
               id={unique_name_id + 1}
               value={rowData.ITEM_NAME2}
+              placeholder="patient's name"
             />
           </>
         )}
       </td>
+
+      <td className="px-6 py-4">
+        {isEditing ? (
+          <>
+            <input
+              type="text"
+              name="AGE"
+              id={unique_name_id + "age"}
+              className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              placeholder="patient's age"
+              value={rowData.AGE}
+              onChange={handleChange}
+              maxLength={17}
+              min={0}
+              minLength={0}
+            />
+
+            <input
+              type="text"
+              name="GENDER"
+              id={unique_name_id + "gender"}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              placeholder="patient's gender"
+              value={rowData.GENDER}
+              onChange={handleChange}
+              min={0}
+              minLength={0}
+              max={1}
+              maxLength={1}
+              onInput={(e) => (e.target.value = e.target.value.toUpperCase())}
+            />
+          </>
+        ) : (
+          <>
+            <TextInput
+              name="AGE"
+              id={unique_name_id + "age"}
+              value={rowData.AGE}
+              className={"mb-3"}
+              placeholder="patient's age"
+            />
+
+            <TextInput
+              name="GENDER"
+              id={unique_name_id + "gender"}
+              value={rowData.GENDER}
+              placeholder="patient's gender"
+            />
+          </>
+        )}
+      </td>
+
       <td className="px-6 py-4">
         {isEditing ? (
           <input
             type="text"
-            name="PRICE"
-            id={unique_price_id}
+            name="CONSULTING_DR"
+            id={unique_price_id + "consultingdr"}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="eg. JS1001"
-            value={rowData.PRICE}
+            placeholder="patient consulting dr"
+            value={rowData.CONSULTING_DR}
             onChange={handleChange}
           />
         ) : (
-          <TextInput name="PRICE" id={unique_price_id} value={rowData.PRICE} />
+          <TextInput
+            name="CONSULTING_DR"
+            id={unique_price_id + "consultingdr"}
+            value={rowData.CONSULTING_DR}
+            placeholder="patient's consulting dr"
+          />
         )}
       </td>
 
@@ -133,33 +194,57 @@ function PatientDataTable({ row, onSave }) {
         {isEditing ? (
           <input
             type="date"
-            name="BEST_BEFORE_DATE"
+            name="ADMITTED_DATE"
             id={unique_best_before_date_id}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="eg. JS1001"
+            placeholder="admit date"
             value={tempDate}
             onChange={handleChange}
           />
         ) : (
           <TextInput
-            name="BEST_BEFORE_DATE"
+            name="ADMITTED_DATE"
             id={unique_best_before_date_id}
-            value={rowData.BEST_BEFORE_DATE}
+            value={rowData.ADMITTED_DATE}
+            placeholder="patient's admit date"
           />
         )}
       </td>
+
       <td className="px-6 py-4">
         {isEditing ? (
-          <SelectDiscountLabel
+          <input
+            type="text"
+            name="PROCEDURE"
+            id={unique_best_before_date_id + "procedure"}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            placeholder="procedure"
+            value={rowData.PROCEDURE}
+            onChange={handleChange}
+          />
+        ) : (
+          <TextInput
+            name="PROCEDURE"
+            id={unique_best_before_date_id + "procedure"}
+            value={rowData.PROCEDURE}
+            placeholder="procedure"
+          />
+        )}
+      </td>
+
+      <td className="px-6 py-4">
+        {isEditing ? (
+          <SelectModeOfPayment
             unique_note_id={unique_note_id}
-            value={rowData.DISC_NOTE}
+            value={rowData.MODE_OF_PAYMENT}
             handleChange={handleChange}
           />
         ) : (
           <TextInput
-            name="DISC_NOTE"
+            name="MODE_OF_PAYMENT"
             id={unique_note_id}
-            value={rowData.DISC_NOTE}
+            value={rowData.MODE_OF_PAYMENT}
+            placeholder="mode of payment"
           />
         )}
       </td>
