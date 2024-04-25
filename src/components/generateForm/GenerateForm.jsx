@@ -94,46 +94,51 @@ function GenerateForm({ setUseCaseData }) {
               </>
             )}
 
-            <label
-              htmlFor="tagsize"
-              className="block mb-2 text-sm font-medium text-gray-900"
-            >
-              Select a tag size
-            </label>
+            {useCase != "pt" && (
+              <>
+                <label
+                  htmlFor="tagsize"
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
+                  Select a tag size
+                </label>
 
-            <select
-              id="tagsize"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-5"
-              value={tagSize}
-              onChange={(e) => setTagSize(e.target.value)}
-            >
-              <option value={""} key={-1} disabled>
-                Choose a tag size
-              </option>
-              {tagSizeArray.map((size, index) => (
-                <option key={index} value={size}>
-                  {size}
-                </option>
-              ))}
-            </select>
+                <select
+                  id="tagsize"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-5"
+                  value={tagSize}
+                  onChange={(e) => setTagSize(e.target.value)}
+                >
+                  <option value={""} key={-1} disabled>
+                    Choose a tag size
+                  </option>
+                  {tagSizeArray.map((size, index) => (
+                    <option key={index} value={size}>
+                      {size}
+                    </option>
+                  ))}
+                </select>
+              </>
+            )}
 
             <label
               htmlFor="identifier"
               className="block mb-2 text-sm font-medium text-gray-900"
             >
-              Tag Identifier
+              Tag Token
             </label>
             <input
-              type="number"
+              type="text"
               id="identifier"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-5"
-              placeholder="tag identifier 0-9"
+              placeholder="eg. JS0, XY2"
               value={identifier}
               onChange={(e) => setIdentifier(e.target.value)}
-              max={9}
-              maxLength={1}
-              min={0}
-              minLength={0}
+              // max={9}
+              maxLength={3}
+              // min={0}
+              // minLength={0}
+              onInput={(e) => (e.target.value = e.target.value.toUpperCase())}
             />
 
             <label

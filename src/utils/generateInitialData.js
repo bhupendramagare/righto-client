@@ -97,7 +97,8 @@ const generateInitialData = (
   identifier,
   totalTokens
 ) => {
-  const token = "JS" + identifier; // the base token JS will be provided by the company
+  // const token = "JS" + identifier; // the base token JS will be provided by the company
+  const token = identifier;
 
   let initialData;
 
