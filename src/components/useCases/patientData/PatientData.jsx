@@ -5,9 +5,10 @@ import PatientDataTable from "./PatientDataTable";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { saveData, saveAllData, getAll } from "../../../services/api";
+import { Patient } from "../../../services/api";
 
 import * as XLSX from "xlsx";
+import EditDetailsHeader from "../../editDetailsHeader/EditDetailsHeader";
 
 function PatientData({ initialData }) {
   const [tableData, setTableData] = useState(initialData);
@@ -18,7 +19,7 @@ function PatientData({ initialData }) {
 
   const savePatientDate = async (data) => {
     try {
-      const response = await saveData(data);
+      const response = await Patient.saveData(data);
       //toast
       toast.success("Saved!", {
         position: "top-right",
@@ -38,7 +39,7 @@ function PatientData({ initialData }) {
 
   const saveAllPatientDate = async () => {
     try {
-      const response = await saveAllData(tableData);
+      const response = await Patient.saveAllData(tableData);
       //toast
       toast.success("Saved!", {
         position: "top-right",
@@ -56,11 +57,12 @@ function PatientData({ initialData }) {
     }
   };
 
-  const getAllPatientsData = async () => {
+  const generateAndDownloadExcelSheet = async () => {
     try {
-      // const response = await getAll();
+      const response = await Patient.getAll();
+
       const wb = XLSX.utils.book_new();
-      const ws = XLSX.utils.json_to_sheet(tableData);
+      const ws = XLSX.utils.json_to_sheet(response);
 
       // Add the worksheet to the workbook
       XLSX.utils.book_append_sheet(wb, ws, "Patients");
@@ -105,23 +107,12 @@ function PatientData({ initialData }) {
       {/* toast  */}
 
       {/* header */}
-      <div>
-        <h4 className="  text-2xl font-bold text-center mb-5">Patient Data</h4>
-        <div className=" mb-5 flex gap-2 justify-end pr-5">
-          <button
-            onClick={saveAllPatientDate}
-            className="bg-transparent hover:bg-green-600 text-green-600 font-semibold hover:text-white py-1 px-2 border border-green-600 hover:border-transparent rounded"
-          >
-            Save All
-          </button>
-          <button
-            onClick={getAllPatientsData}
-            className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-2 border border-blue-500 hover:border-transparent rounded"
-          >
-            Export Excel
-          </button>
-        </div>
-      </div>
+
+      <EditDetailsHeader
+        title={"Patient Data"}
+        saveAllPatientData={saveAllPatientDate}
+        generateAndDownloadExcelSheet={generateAndDownloadExcelSheet}
+      />
 
       {/* card component render if sm view */}
       <div className="md:hidden flex flex-col gap-5 items-center">

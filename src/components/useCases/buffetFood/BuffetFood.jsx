@@ -4,6 +4,9 @@ import BuffetFoodTable from "./BuffetFoodTable";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Buffet } from "../../../services/api";
+import * as XLSX from "xlsx";
+import EditDetailsHeader from "../../editDetailsHeader/EditDetailsHeader";
 
 function BuffetFood({ initialData }) {
   const [tableData, setTableData] = useState(initialData);
@@ -12,24 +15,66 @@ function BuffetFood({ initialData }) {
     setTableData(initialData);
   }, [initialData]);
 
+  const saveBuffetData = async (data) => {
+    try {
+      const response = await Buffet.saveData(data);
+      //toast
+      toast.success("Saved!", {
+        position: "top-right",
+        autoClose: 1999,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } catch (error) {
+      console.error("Error saving data:", error);
+      console.log(response); //console log erro from server
+    }
+  };
+
+  const saveAllBuffetData = async () => {
+    try {
+      const response = await Buffet.saveAllData(tableData);
+      //toast
+      toast.success("Saved!", {
+        position: "top-right",
+        autoClose: 1999,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } catch (error) {
+      console.error("Error saving data:", error);
+      console.log(response); //console log erro from server
+    }
+  };
+
+  const generateAndDownloadExcelSheet = async () => {
+    try {
+      const response = await Buffet.getAll();
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.json_to_sheet(response);
+
+      // Add the worksheet to the workbook
+      XLSX.utils.book_append_sheet(wb, ws, "Patients");
+
+      // Write the workbook to a file
+      XLSX.writeFile(wb, "patients.xlsx");
+    } catch (error) {
+      console.error("Error saving data:", error);
+      console.log(response); //console log erro from server
+    }
+  };
+
   const handleSave = (updatedRow) => {
-    //toast
-    toast.success("Saved!", {
-      position: "top-right",
-      autoClose: 1999,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    //
-
-    //save to database
-
-    console.log(updatedRow);
-
+    //save buffe row data
+    saveBuffetData(updatedRow);
     //
 
     const updatedData = tableData.map((row) => {
@@ -59,9 +104,11 @@ function BuffetFood({ initialData }) {
       {/* toast  */}
 
       {/* header */}
-      <div>
-        <h4 className="text-2xl font-bold text-center mb-10">Buffet Food</h4>
-      </div>
+      <EditDetailsHeader
+        title={"Buffet Data"}
+        saveAllPatientData={saveAllBuffetData}
+        generateAndDownloadExcelSheet={generateAndDownloadExcelSheet}
+      />
 
       {/* card component render if sm view */}
       <div className="md:hidden flex flex-col gap-5 items-center">
