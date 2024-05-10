@@ -51,8 +51,8 @@ function buffetFood(token, totalTokens) {
     let temp = {
       id: index,
       PRODUCT_ID: tokenGenerator(token, index),
-      ITEM_NAME1: "name1 " + index,
-      ITEM_NAME2: "name2 " + index,
+      ITEM_NAME1: "",
+      ITEM_NAME2: "",
       CALORIES: `0`,
       ALLERGEN: "0",
       DISC_NOTE: "0",

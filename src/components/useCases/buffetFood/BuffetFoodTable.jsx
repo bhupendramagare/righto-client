@@ -5,7 +5,7 @@ import SelectAllergen from "../../select/SelectAllergen";
 
 function BuffetFoodTable({ row, onSave }) {
   const [rowData, setRowData] = useState(row);
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(true);
 
   //uniqu id's for input label id attributes
   const unique_product_id = useId();
@@ -101,11 +101,10 @@ function BuffetFoodTable({ row, onSave }) {
       <td className="px-6 py-4">
         {isEditing ? (
           <input
-            type="text"
+            type="number"
             name="CALORIES"
             id={unique_price_id}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="eg. JS1001"
             value={rowData.CALORIES}
             onChange={handleChange}
           />
