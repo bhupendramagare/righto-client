@@ -23,7 +23,9 @@ function EditDetails({ useCase, currency, tagSize, identifier, totalTokens }) {
       content = <GroceryStore initialData={initialData} />;
       break;
     case "bf":
-      content = <BuffetFood initialData={initialData} />;
+      content = (
+        <BuffetFood identifier={identifier} initialData={initialData} />
+      );
       break;
     case "pt":
       content = <PatientData initialData={initialData} />;

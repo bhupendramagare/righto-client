@@ -1,7 +1,7 @@
 import React from "react";
 
 function SelectModeOfPayment({ unique_note_id, value, handleChange }) {
-  const options = ["Cash", "Insurance", "CGHS", "ESIC"];
+  const options = ["CASH", "INSURANCE", "CGHS", "ESIC"];
   return (
     <>
       <select

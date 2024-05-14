@@ -20,6 +20,7 @@ function BuffetFoodTable({ row, onSave }) {
 
   const handleSave = () => {
     onSave(rowData);
+    // onSave(rowData, true);
     setIsEditing(false);
   };
 
@@ -29,6 +30,7 @@ function BuffetFoodTable({ row, onSave }) {
       ...rowData,
       [name]: value,
     });
+    // onSave(rowData);
   };
   return (
     <tr className="bg-white border-b hover:bg-gray-50">

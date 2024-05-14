@@ -8,7 +8,7 @@ import { Buffet } from "../../../services/api";
 import * as XLSX from "xlsx";
 import EditDetailsHeader from "../../editDetailsHeader/EditDetailsHeader";
 
-function BuffetFood({ initialData }) {
+function BuffetFood({ identifier, initialData }) {
   const [tableData, setTableData] = useState(initialData);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ function BuffetFood({ initialData }) {
 
   const saveBuffetData = async (data) => {
     try {
-      const response = await Buffet.saveData(data);
+      const response = await Buffet.saveData(identifier, data);
       //toast
       toast.success("Saved!", {
         position: "top-right",
@@ -37,7 +37,7 @@ function BuffetFood({ initialData }) {
 
   const saveAllBuffetData = async () => {
     try {
-      const response = await Buffet.saveAllData(tableData);
+      const response = await Buffet.saveAllData(identifier, tableData);
       //toast
       toast.success("Saved!", {
         position: "top-right",

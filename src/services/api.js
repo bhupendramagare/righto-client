@@ -12,17 +12,20 @@ const api = axios.create({
 });
 
 export class Buffet {
-  static saveData = async (data) => {
+  static saveData = async (token, data) => {
     // Generate a new unique ID
     const newId = uuidv4();
 
     const newData = {
-      _id: newId,
-      PRODUCT_ID: data.PRODUCT_ID,
-      NAME: data.ITEM_NAME1 + data.ITEM_NAME2,
-      CALORIES: data.CALORIES,
-      ALLERGEN: data.ALLERGEN,
-      NOTE: data.NOTE,
+      token,
+      data: {
+        _id: newId,
+        PRODUCT_ID: data.PRODUCT_ID,
+        NAME: data.ITEM_NAME1 + data.ITEM_NAME2,
+        CALORIES: data.CALORIES,
+        ALLERGEN: data.ALLERGEN,
+        NOTE: data.NOTE,
+      },
     };
 
     try {
@@ -33,8 +36,10 @@ export class Buffet {
     }
   };
 
-  static saveAllData = async (dataArray) => {
+  static saveAllData = async (token, dataArray) => {
     let newDataArray = [];
+
+    console.log(token, dataArray);
 
     dataArray.forEach((data) => {
       const newData = {
@@ -48,8 +53,10 @@ export class Buffet {
       newDataArray.push(newData);
     });
 
+    const newData = { token, newDataArray };
+
     try {
-      const response = await api.post("/api/buffet/bulk", newDataArray);
+      const response = await api.post("/api/buffet/bulk", newData);
       return response.data;
     } catch (error) {
       throw error;
