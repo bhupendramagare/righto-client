@@ -5,7 +5,7 @@ import SelectAllergen from "../../select/SelectAllergen";
 
 function BuffetFoodCard({ row, onSave }) {
   const [rowData, setRowData] = useState(row);
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(true);
 
   //uniqu id's for input label id attributes
   const unique_product_id = useId();
@@ -19,17 +19,24 @@ function BuffetFoodCard({ row, onSave }) {
   };
 
   const handleSave = () => {
-    onSave(rowData);
+    // onSave(rowData);
+    onSave(rowData, true);
     setIsEditing(false);
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setRowData({
-      ...rowData,
+    // Update rowData state with the latest state
+    setRowData((prevRowData) => ({
+      ...prevRowData,
       [name]: value,
-    });
+    }));
+
+    // Call onSave function with the latest state
+    onSave({ ...rowData, [name]: value }, false);
+
+    console.log(name, value);
   };
 
   return (

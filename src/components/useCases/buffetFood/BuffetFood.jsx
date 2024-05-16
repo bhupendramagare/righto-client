@@ -72,9 +72,9 @@ function BuffetFood({ identifier, initialData }) {
     }
   };
 
-  const handleSave = (updatedRow) => {
+  const handleSave = (updatedRow, isSaveClick = false) => {
     //save buffe row data
-    saveBuffetData(updatedRow);
+    if (isSaveClick) saveBuffetData(updatedRow);
     //
 
     const updatedData = tableData.map((row) => {

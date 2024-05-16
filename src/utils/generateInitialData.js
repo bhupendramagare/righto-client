@@ -54,8 +54,8 @@ function buffetFood(token, totalTokens) {
       ITEM_NAME1: "",
       ITEM_NAME2: "",
       CALORIES: `0`,
-      ALLERGEN: "0",
-      DISC_NOTE: "0",
+      ALLERGEN: "",
+      DISC_NOTE: "",
     };
 
     testData.push(temp);

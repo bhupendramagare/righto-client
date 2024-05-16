@@ -1,0 +1,30 @@
+/* custom-multiselect.css */
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item {
+  background-color: #f0f4f8; /* Example background color */
+  color: #000; /* Text color */
+}
+
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item:hover {
+  background-color: #e0e7ef; /* Hover background color */
+}
+
+/* custom-multiselect.css */
+.p-multiselect {
+  display: flex;
+  flex-direction: column;
+}
+
+.p-multiselect-token {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item {
+  background-color: lightpink; /* Example background color */
+  color: #000; /* Text color */
+}
+
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item:hover {
+  background-color: #e0e7ef; /* Hover background color */
+}
