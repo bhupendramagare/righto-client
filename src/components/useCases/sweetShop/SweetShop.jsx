@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import SweetShopTable from "./SweetShopTable";
 import SweetShopCard from "./SweetShopCard";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { SweetShopb } from "../../../services/api";
+import * as XLSX from "xlsx";
+import EditDetailsHeader from "../../editDetailsHeader/EditDetailsHeader";
 
 function SweetShop({ initialData }) {
   const [tableData, setTableData] = useState(initialData);
@@ -12,25 +14,58 @@ function SweetShop({ initialData }) {
     setTableData(initialData);
   }, [initialData]);
 
-  const handleSave = (updatedRow) => {
-    //toast
-    toast.success("Saved!", {
-      position: "top-right",
-      autoClose: 1999,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    //
+  const saveSweetShopData = async (data) => {
+    try {
+      const response = await SweetShopb.saveData(data);
+      toast.success("Saved!", {
+        position: "top-right",
+        autoClose: 1999,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } catch (error) {
+      console.error("Error saving data:", error);
+    }
+  };
 
-    //save to database
+  const saveAllSweetShopData = async () => {
+    try {
+      const response = await SweetShopb.saveAllData(tableData);
+      toast.success("Saved!", {
+        position: "top-right",
+        autoClose: 1999,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } catch (error) {
+      console.error("Error saving data:", error);
+    }
+  };
 
-    console.log(updatedRow);
+  const generateAndDownloadExcelSheet = async () => {
+    try {
+      const response = await SweetShopb.getAll();
 
-    //
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.json_to_sheet(response);
+
+      XLSX.utils.book_append_sheet(wb, ws, "SweetShop");
+      XLSX.writeFile(wb, "sweet_shop.xlsx");
+    } catch (error) {
+      console.error("Error generating Excel sheet:", error);
+    }
+  };
+
+  const handleSave = async (updatedRow) => {
+    saveSweetShopData(updatedRow);
 
     const updatedData = tableData.map((row) => {
       if (row.id === updatedRow.id) {
@@ -43,7 +78,6 @@ function SweetShop({ initialData }) {
 
   return (
     <>
-      {/* toast  */}
       <ToastContainer
         position="top-right"
         autoClose={1999}
@@ -56,12 +90,13 @@ function SweetShop({ initialData }) {
         pauseOnHover
         theme="light"
       />
-      {/* toast  */}
 
       {/* header */}
-      <div>
-        <h4 className="text-2xl font-bold text-center mb-10">Sweet Shop</h4>
-      </div>
+      <EditDetailsHeader
+        title={"Buffet Data"}
+        saveAllPatientData={saveAllSweetShopData}
+        generateAndDownloadExcelSheet={generateAndDownloadExcelSheet}
+      />
 
       {/* card component render if sm view */}
       <div className="md:hidden flex flex-col gap-5 items-center">

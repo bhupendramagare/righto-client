@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
-import GroceryStoreTabel from "./GroceryStoreTable";
+import GroceryStoreTable from "./GroceryStoreTable";
 import GroceryStoreCard from "./GroceryStoreCard";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import { GroceryStoreb } from "../../../services/api";
+import * as XLSX from "xlsx";
+import EditDetailsHeader from "../../editDetailsHeader/EditDetailsHeader";
 
 function GroceryStore({ initialData }) {
   const [tableData, setTableData] = useState(initialData);
@@ -12,28 +16,61 @@ function GroceryStore({ initialData }) {
     setTableData(initialData);
   }, [initialData]);
 
-  const handleSave = (updatedRow) => {
-    //toast
-    toast.success("Saved!", {
-      position: "top-right",
-      autoClose: 1999,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    //
+  const saveGroceryData = async (data) => {
+    try {
+      const response = await GroceryStoreb.saveData(data);
+      toast.success("Saved!", {
+        position: "top-right",
+        autoClose: 1999,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } catch (error) {
+      console.error("Error saving data:", error);
+    }
+  };
 
-    //save to database
+  const saveAllGroceryData = async () => {
+    try {
+      const response = await GroceryStoreb.saveAllData(tableData);
+      toast.success("Saved!", {
+        position: "top-right",
+        autoClose: 1999,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } catch (error) {
+      console.error("Error saving data:", error);
+    }
+  };
 
-    console.log(updatedRow);
+  const generateAndDownloadExcelSheet = async () => {
+    try {
+      const response = await GroceryStoreb.getAll();
 
-    //
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.json_to_sheet(response);
+
+      XLSX.utils.book_append_sheet(wb, ws, "GroceryStore");
+      XLSX.writeFile(wb, "grocery_store.xlsx");
+    } catch (error) {
+      console.error("Error generating Excel sheet:", error);
+    }
+  };
+
+  const handleSave = async (updatedRow) => {
+    saveGroceryData(updatedRow);
 
     const updatedData = tableData.map((row) => {
-      if (row.id === updatedRow.id) {
+      if (row._id === updatedRow._id) {
         return updatedRow;
       }
       return row;
@@ -43,7 +80,6 @@ function GroceryStore({ initialData }) {
 
   return (
     <>
-      {/* toast  */}
       <ToastContainer
         position="top-right"
         autoClose={1999}
@@ -56,25 +92,24 @@ function GroceryStore({ initialData }) {
         pauseOnHover
         theme="light"
       />
-      {/* toast  */}
 
       {/* header */}
-      <div>
-        <h4 className="text-2xl font-bold text-center mb-10">Grocery Store</h4>
-      </div>
+      <EditDetailsHeader
+        title={"Buffet Data"}
+        saveAllPatientData={saveAllGroceryData}
+        generateAndDownloadExcelSheet={generateAndDownloadExcelSheet}
+      />
 
-      {/* card component render if sm view */}
       <div className="md:hidden flex flex-col gap-5 items-center">
         {tableData.map((row, index) => (
           <GroceryStoreCard key={index} row={row} onSave={handleSave} />
         ))}
       </div>
 
-      {/* table component render if desktop view  */}
-      <div className="hidden md:block  ">
+      <div className="hidden md:block">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left text-gray-500">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50">
               <tr>
                 <th scope="col" className="px-6 py-3">
                   Product ID
@@ -91,15 +126,14 @@ function GroceryStore({ initialData }) {
                 <th scope="col" className="px-6 py-3">
                   Discount/Note
                 </th>
-
-                <th scope="col" className=" px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   Action
                 </th>
               </tr>
             </thead>
             <tbody>
               {tableData.map((row, index) => (
-                <GroceryStoreTabel key={index} row={row} onSave={handleSave} />
+                <GroceryStoreTable key={index} row={row} onSave={handleSave} />
               ))}
             </tbody>
           </table>

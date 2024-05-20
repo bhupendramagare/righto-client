@@ -4,7 +4,7 @@ import TextInput from "../../inputReadonly/TextInput";
 
 function GroceryStoreTable({ row, onSave }) {
   const [rowData, setRowData] = useState(row);
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(true);
 
   //uniqu id's for input label id attributes
   const unique_product_id = useId();
