@@ -134,7 +134,7 @@ export class Buffet {
         NAME: data.ITEM_NAME1 + data.ITEM_NAME2,
         CALORIES: data.CALORIES,
         ALLERGEN: data.ALLERGEN,
-        NOTE: data.NOTE,
+        NOTE: data.DISC_NOTE,
       },
     };
 
@@ -158,7 +158,7 @@ export class Buffet {
         NAME: data.ITEM_NAME1 + data.ITEM_NAME2,
         CALORIES: data.CALORIES,
         ALLERGEN: data.ALLERGEN,
-        NOTE: data.NOTE,
+        NOTE: data.DISC_NOTE,
       };
       newDataArray.push(newData);
     });

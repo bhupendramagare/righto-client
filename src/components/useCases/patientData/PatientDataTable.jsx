@@ -20,7 +20,7 @@ function PatientDataTable({ row, onSave }) {
   };
 
   const handleSave = () => {
-    onSave(rowData);
+    onSave(rowData, true);
     setIsEditing(false);
   };
 
@@ -45,6 +45,9 @@ function PatientDataTable({ row, onSave }) {
       ...rowData,
       [name]: value,
     });
+
+    // Call onSave function with the latest state
+    onSave({ ...rowData, [name]: value }, false);
   };
   return (
     <tr className="bg-white border-b hover:bg-gray-50">

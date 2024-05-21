@@ -17,7 +17,7 @@ function PatientData({ initialData }) {
     setTableData(initialData);
   }, [initialData]);
 
-  const savePatientDate = async (data) => {
+  const savePatientData = async (data) => {
     try {
       const response = await Patient.saveData(data);
       //toast
@@ -37,7 +37,7 @@ function PatientData({ initialData }) {
     }
   };
 
-  const saveAllPatientDate = async () => {
+  const saveAllPatientData = async () => {
     try {
       const response = await Patient.saveAllData(tableData);
       //toast
@@ -59,7 +59,9 @@ function PatientData({ initialData }) {
 
   const generateAndDownloadExcelSheet = async () => {
     try {
-      const response = await Patient.getAll();
+      // const response = await Patient.getAll();
+
+      const response = tableData;
 
       const wb = XLSX.utils.book_new();
       const ws = XLSX.utils.json_to_sheet(response);
@@ -75,9 +77,9 @@ function PatientData({ initialData }) {
     }
   };
 
-  const handleSave = async (updatedRow) => {
-    //save data
-    savePatientDate(updatedRow);
+  const handleSave = (updatedRow, isSaveClick = false) => {
+    //save buffe row data
+    if (isSaveClick) savePatientData(updatedRow);
     //
 
     const updatedData = tableData.map((row) => {
@@ -110,7 +112,7 @@ function PatientData({ initialData }) {
 
       <EditDetailsHeader
         title={"Patient Data"}
-        saveAllPatientData={saveAllPatientDate}
+        saveAllPatientData={saveAllPatientData}
         generateAndDownloadExcelSheet={generateAndDownloadExcelSheet}
       />
 

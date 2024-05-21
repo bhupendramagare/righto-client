@@ -36,7 +36,7 @@ function BuffetFoodTable({ row, onSave }) {
     // Call onSave function with the latest state
     onSave({ ...rowData, [name]: value }, false);
 
-    console.log(name, value);
+    // console.log(name, value);
   };
 
   return (

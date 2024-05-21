@@ -18,17 +18,26 @@ function GroceryStoreTable({ row, onSave }) {
   };
 
   const handleSave = () => {
-    onSave(rowData);
+    // onSave(rowData);
+    onSave(rowData, true);
     setIsEditing(false);
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setRowData({
-      ...rowData,
+
+    // Update rowData state with the latest state
+    setRowData((prevRowData) => ({
+      ...prevRowData,
       [name]: value,
-    });
+    }));
+
+    // Call onSave function with the latest state
+    onSave({ ...rowData, [name]: value }, false);
+
+    // console.log(name, value);
   };
+
   return (
     <tr className="bg-white border-b hover:bg-gray-50">
       <th

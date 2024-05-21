@@ -5,7 +5,7 @@ import TextInput from "../../inputReadonly/TextInput";
 
 function SweetShopCard({ row, onSave }) {
   const [rowData, setRowData] = useState(row);
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(true);
   const [tempDate, setTempDate] = useState(""); // Formats the date as "yyyy-MM-dd"
 
   //uniqu id's for input label id attributes
@@ -20,7 +20,7 @@ function SweetShopCard({ row, onSave }) {
   };
 
   const handleSave = () => {
-    onSave(rowData);
+    onSave(rowData, true);
     setIsEditing(false);
   };
 
@@ -45,6 +45,9 @@ function SweetShopCard({ row, onSave }) {
       ...rowData,
       [name]: value,
     });
+
+    // Call onSave function with the latest state
+    onSave({ ...rowData, [name]: value }, false);
   };
 
   return (

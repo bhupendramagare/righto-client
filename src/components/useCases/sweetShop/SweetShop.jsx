@@ -52,7 +52,8 @@ function SweetShop({ initialData }) {
 
   const generateAndDownloadExcelSheet = async () => {
     try {
-      const response = await SweetShopb.getAll();
+      // const response = await SweetShopb.getAll();
+      const response = tableData;
 
       const wb = XLSX.utils.book_new();
       const ws = XLSX.utils.json_to_sheet(response);
@@ -64,8 +65,10 @@ function SweetShop({ initialData }) {
     }
   };
 
-  const handleSave = async (updatedRow) => {
-    saveSweetShopData(updatedRow);
+  const handleSave = (updatedRow, isSaveClick = false) => {
+    //save buffe row data
+    if (isSaveClick) saveSweetShopData(updatedRow);
+    //
 
     const updatedData = tableData.map((row) => {
       if (row.id === updatedRow.id) {
@@ -93,7 +96,7 @@ function SweetShop({ initialData }) {
 
       {/* header */}
       <EditDetailsHeader
-        title={"Buffet Data"}
+        title={"Sweet Shop"}
         saveAllPatientData={saveAllSweetShopData}
         generateAndDownloadExcelSheet={generateAndDownloadExcelSheet}
       />

@@ -54,7 +54,8 @@ function GroceryStore({ initialData }) {
 
   const generateAndDownloadExcelSheet = async () => {
     try {
-      const response = await GroceryStoreb.getAll();
+      // const response = await GroceryStoreb.getAll();
+      const response = tableData;
 
       const wb = XLSX.utils.book_new();
       const ws = XLSX.utils.json_to_sheet(response);
@@ -66,11 +67,13 @@ function GroceryStore({ initialData }) {
     }
   };
 
-  const handleSave = async (updatedRow) => {
-    saveGroceryData(updatedRow);
+  const handleSave = (updatedRow, isSaveClick = false) => {
+    //save buffe row data
+    if (isSaveClick) saveGroceryData(updatedRow);
+    //
 
     const updatedData = tableData.map((row) => {
-      if (row._id === updatedRow._id) {
+      if (row.id === updatedRow.id) {
         return updatedRow;
       }
       return row;
@@ -95,7 +98,7 @@ function GroceryStore({ initialData }) {
 
       {/* header */}
       <EditDetailsHeader
-        title={"Buffet Data"}
+        title={"Grocery Store"}
         saveAllPatientData={saveAllGroceryData}
         generateAndDownloadExcelSheet={generateAndDownloadExcelSheet}
       />

@@ -57,15 +57,16 @@ function BuffetFood({ identifier, initialData }) {
 
   const generateAndDownloadExcelSheet = async () => {
     try {
-      const response = await Buffet.getAll();
+      // const response = await Buffet.getAll();
+      const response = tableData;
       const wb = XLSX.utils.book_new();
       const ws = XLSX.utils.json_to_sheet(response);
 
       // Add the worksheet to the workbook
-      XLSX.utils.book_append_sheet(wb, ws, "Patients");
+      XLSX.utils.book_append_sheet(wb, ws, "Buffet Data");
 
       // Write the workbook to a file
-      XLSX.writeFile(wb, "patients.xlsx");
+      XLSX.writeFile(wb, "buffet.xlsx");
     } catch (error) {
       console.error("Error saving data:", error);
       console.log(response); //console log erro from server

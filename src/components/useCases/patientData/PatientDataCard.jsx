@@ -20,7 +20,7 @@ function PatientDataCard({ row, onSave }) {
   };
 
   const handleSave = () => {
-    onSave(rowData);
+    onSave(rowData, true);
     setIsEditing(false);
   };
 
@@ -45,6 +45,9 @@ function PatientDataCard({ row, onSave }) {
       ...rowData,
       [name]: value,
     });
+
+    // Call onSave function with the latest state
+    onSave({ ...rowData, [name]: value }, false);
   };
 
   return (
