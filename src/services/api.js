@@ -149,7 +149,7 @@ export class Buffet {
   static saveAllData = async (token, dataArray) => {
     let newDataArray = [];
 
-    console.log(token, dataArray);
+    // console.log(token, dataArray);
 
     dataArray.forEach((data) => {
       const newData = {
@@ -179,6 +179,16 @@ export class Buffet {
       return response.data;
     } catch (error) {
       throw error;
+    }
+  };
+
+  static getAllByToken = async (token) => {
+    try {
+      const response = await api.get(`/api/buffet/${token}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+      // return null;
     }
   };
 }

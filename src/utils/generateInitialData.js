@@ -1,5 +1,6 @@
 import tokenGenerator from "./tokenGenerator";
 import { format } from "date-fns";
+import { Buffet } from "../services/api";
 
 function sweetShop(token, currency, totalTokens) {
   let currentDate = new Date();
